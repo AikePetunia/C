@@ -11,7 +11,7 @@
 
 void print_sep(int length) {
     printf("\t ");
-    for (int i=0; i < TAM;i++) printf("................");
+    for (int i=0; i < length;i++) printf("................");
     printf("\n");
 
 }
@@ -31,48 +31,85 @@ void print_board(char board[TAM][TAM])
     }
 }
 
-char get_winner(char board[TAM][TAM])
-{
+char get_winner(char board[TAM][TAM]) {
     char winner = '-';
-    int counter = 0;
-    /* 8 possible winner movements, otherwise is a tie
-       i is column, j is row  */
-    for (int i = 0; i < TAM; i++) {
-        for (int j = 0; j < TAM; j++) {
-            //horizontal
-            if (board[i] ) {
-                winner = board[i][j];
-            }
+        
+    // i is row, j is column  
 
-            //diagonal, doesnt work.
-            if (board[i][i] == board[j][j] ) {
-                winner = board[i][j];
-            }
+            /*
+                Diagonal (\ /)
+                si hago board[i][j], esta checkeando pos:
+                0 0
+                1 1
+                2 2
+                3 3
+                4 4 
+                n n
 
-            /*  old
-            //check for Diagonal
-            if (board[i][0] == board[i][1] && board[i][0] == board[i][2]) {
-                winner = board[i][0];
-            }
-            if (board[0][i] == board[1][i] && board[0][i] == board[2][i]) {
-                winner = board[0][i];
-            } 
-            //check horizontal
-            if (board[i][1] == board[j][1] && board[i][2] == board[j][2] && board[i][3] == board[j][3]) {
-                winner = board[i][0];
-            }
+                Si es horizontal ( --- )
+                0 0     1 0      
+                0 1     1 1 
+                0 2     1 2 
+                0 3     1 3 
+                0 4     1 4 
+                0 5     1 5
+                0 n     1 n
 
-            if(board[0][2] == board[1][1] && board[0][2] == board[2][0] ) {
-                winner = board[0][2];
-            }   
+                Si es verticual ( | )
+            
+                0 0     0 1 
+                1 0     1 1 
+                2 0     2 1 
+                3 0     3 1
+                4 0     4 1 
+                n 0     n 1 
+
+                Deberia de checkear que se igual a una posicion anterior, o usar alguna posicion de referencia para comparar, la nueva, con la que se debe usar/incrementar.
+
             */
+    // creamos variables para ir almacenando valores ganadores, para luego hacer un ternary operator para verificar si es ganador o no, para al final devolver al menos uno.
+    bool verticalWinner = true;
+    bool horizontalWinner = true;
+
+    bool diagonalWinnerLR = true;
+    bool diagonalWinnerRL = true;
+    
+    for (int i = 0; i < TAM; i++) {
+        // horizontal, vertical, como se incrementa una posicion o la otra, necesito otro bucle
+        for (int j = 0; j < TAM; j++) {
+            if (board[i][0] == '-' || board[0][i] == '-') { // Horizontal o verticual
+                if (verticalWinner && board[i][j] != board[i][0]) verticalWinner = false;
+                horizontalWinner ? (board[i][j] != board[0][i]) : false;
+            } 
         }
+        
+        // diagonal, se aumenta el mismo valor y lito, tiene dos sentidos, de izquierda para derecha, o de derecha a izquierda (ode arriba a abajo y de abajo a arriba, whatever)
+            /*  
+                Las esquinas son:
+                board[0][0] (Arriba, izq)
+                board[TAM-1][0] (abajo, izq )
+                board[0][TAM-1] (arriba, der)
+                board[TAM-1][TAM-1] (abajo, der)
+            */
+            if (board[0][0] != board[TAM-1][0] ) {
+                if (board[i][i] == board[0][0]) {
+                    winner = board[0][0];
+                }
+            }
+
+            if (board[0][TAM-1] != board[TAM-1][TAM-1]) {
+                if (board[TAM-1-i][i] == board[i][TAM-1-i]) {
+                    winner = board[TAM-1][0];
+                }
+            }
     }
     return winner;
+
+    //bue, nm ose
 }
 
-bool has_free_cell(char board[TAM][TAM])
-{
+
+bool has_free_cell(char board[TAM][TAM]){
     bool free_cell=false;
     
     for (int i = 0; i < TAM; i++) {
@@ -89,7 +126,7 @@ int main(void)
 {
     printf("TicTacToe\n");
 
-    char board[TAM][TAM] = {};
+    char board[TAM][TAM];
 
     for (int i = 0; i < TAM; i++) {
         for (int j = 0; j < TAM; j++) {
