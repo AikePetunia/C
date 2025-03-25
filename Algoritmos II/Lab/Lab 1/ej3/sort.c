@@ -37,13 +37,11 @@ static unsigned int partition(int a[], unsigned int izq, unsigned int der) {
     
     */ 
 
-    // se sigue usando la recursion:
-
     int pivot = a[der]; // asumo para agarrar el final
     int i = izq - 1; // seria el cubo q selecciopna el coso mas a la izq
 
     // recorro de inicio a fin, a der no lo hago menos uno, en quick_sort ya lo reduce. Ademas si es 0, quedaria en -1
-    for (int j = izq; j <= der; j++) {
+    for (int j = izq; j <der ; j++) {
         if (goes_before(izq, pivot)) {
             i++;
             swap (a, i, j);  
