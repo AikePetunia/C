@@ -26,7 +26,7 @@ void selection_sort(int a[], unsigned int length) {
 
 
 static void insert(int a[], unsigned int i, unsigned int length) { // unsigned int length SE AGREGO PQ SI NO, NO FUNCA NADA
-        int j = i;// so we can compare from the beggining, we start at the left.
+    int j = i;// so we can compare from the beggining, we start at the left.
     
     if (!array_is_sorted(a, length)) { // inv ? 
     while (j > 0 && !goes_before(a[j-1], a[j])) {
@@ -50,7 +50,7 @@ static unsigned int partition(int a[], unsigned int izq, unsigned int der) {
     int i = izq - 1; // seria el cubo q selecciopna el coso mas a la izq
 
     // recorro de inicio a fin, a der no lo hago menos uno, en quick_sort ya lo reduce. Ademas si es 0, quedaria en -1
-    for (int j = izq; j <der ; j++) {
+    for (int j = izq; j < der ; j++) {
         if (goes_before(izq, pivot)) {
             i++;
             swap (a, i, j);  

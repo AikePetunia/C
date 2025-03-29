@@ -63,45 +63,56 @@ int main(int argc, char *argv[]) {
     reset_swaps_counter();
     set_current_time();
 
-    /* do the actual sorting */
-    selection_sort(copy, length);
-
-    /* show statistics for selection_sort */
-    printf("statistics for selection_sort\n");
-    printf("time elapsed=%g,    comparisons: %10u,    swaps: %10u\n", calculate_elapsed_time(), comparisons_number(), swaps_number());
-    
-    printf("Quick sort");
+    printf("/+/+/+/+/+/+/+/+/+/+/+/+  \n");
+    printf("Quick sort \n"); // esto si anda individualmente
     quick_sort(array, length); //llama a la funcion
+    printf("Estadisticas para Quick sort\n");
+    printf("Tiempo trascurrido=%g, \n"    
+            "comparisons: %10u \n,"      
+            "swaps: %10u\n", 
+    calculate_elapsed_time(), comparisons_number(), swaps_number());
+    printf("/+/+/+/+/+/+/+/+/+/+/+/+  \n");
     
-    array_dump(array, length);
-
-    /* check if it is sorted */
-    assert(array_is_sorted(array, length));
-
-    /* check if it is a permutation of original */
+    assert(array_is_sorted(array, length));    
+    array_dump(array, length); 
     assert(array_is_permutation_of(copy, array, length));
-        /* Usando la idea de las líneas de códigos anteriores
-        muestre las estadísticas (tiempo de ejecución, número de comparaciones e
-        intercambios realizados) para quick_sort. No te olvides que antes debes
-        copiar el arreglo original, resetear los contadores y setear el tiempo.
-        */
 
-    printf("Insertion sort");
+    printf("/+/+/+/+/+/+/+/+/+/+/+/+  \n");
+    printf("Insertion sort"); // insertion si anda individualmente
     insertion_sort(array, length); // llama a la funcion
-    /* show the ordered array in the screen */
+    printf("Estadisticas para insertion sort\n");
+    printf("Tiempo trascurrido=%g, \n"    
+            "comparisons: %10u \n,"      
+            "swaps: %10u\n", 
+    calculate_elapsed_time(), comparisons_number(), swaps_number());
+    printf("/+/+/+/+/+/+/+/+/+/+/+/+  \n");
+    
+    assert(array_is_sorted(array, length)); 
     array_dump(array, length);
+    assert(array_is_permutation_of(copy, array, length));
 
-    /* check if it is sorted */
+    printf("/+/+/+/+/+/+/+/+/+/+/+/+ \n");
+    printf("Selection sort stats \n"); // selection sort es el algoritmo ya dado por el coso
+    selection_sort(copy, length);
+    printf("Estadisticas para selection_sort\n");
+    printf("Tiempo trascurrido: %g, \n"    
+            "comparisons: %10u \n"      
+            "swaps: %10u\n", 
+    calculate_elapsed_time(), comparisons_number(), swaps_number());
+    printf("/+/+/+/+/+/+/+/+/+/+/+/+ \n");
+    
     assert(array_is_sorted(array, length));
-
-    /* Usando la idea de las líneas de códigos anteriores
-       muestre las estadísticas (tiempo de ejecución, número de comparaciones e
-       intercambios realizados) para insertion_sort. No te olvides que antes debes
-       copiar el arreglo original, resetear los contadores y setear el tiempo.
-    */
-
- 
+    array_dump(array, length); 
+    assert(array_is_permutation_of(copy, array, length));
 
 
     return EXIT_SUCCESS;
 }
+
+
+/*
+compilar:
+
+gcc -Wall -Werror -Wextra -pedantic -std=c99 -c array_helpers.c sort.c main.c
+gcc -Wall -Werror -Wextra -pedantic -std=c99 -no-pie sort.o sort.h array_helpers.o sort_helpers.o main.o -o sorter 
+*/
