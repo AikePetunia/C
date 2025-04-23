@@ -29,30 +29,17 @@ Compilar, ejecutar los tests y asegurarse de que todos pasen:
 int main() {
     struct testcase tests[N_TESTCASES] = {
     // primero el array, tamaño, k, numero esperado.
-    { {8}, 1, 0, 8}, 
-    { {0, 1}, 2, 0, 0}, 
-    { {0, 2}, 2, 1, 2}, 
-    { {8, 9}, 2, 0, 8}, 
-    { {10, 11}, 2, 1, 11}, 
-    {{8, -2, 9, 0, 13}, 5, 0, 8}, 
-    {{8, -2, 9, 0, 13}, 5, 1, -2}, 
-    {{8, -2, 9, 0, 13}, 5, 2, 9}, 
-    {{8, -2, 9, 0, 13}, 5, 3, 0}, 
-    {{8, -2, 9, 0, 13}, 5, 4, 13}, 
-
-    /*
-    TESTING k_esimo
-    Test case 1: OK
-    Test case 2: OK
-    Test case 3: OK
-    Test case 4: OK
-    Test case 5: OK
-    Test case 6: OK
-    Test case 7: FAILED
-    Test case 8: FAILED
-    Test case 9: FAILED
-    Test case 10: OK
-    */
+    { {8}, 1, 0, 8}, // test 1
+    { {0, 1}, 2, 0, 0}, // test 2
+    { {0, 2}, 2, 1, 2}, // test 3
+    { {8, 9}, 2, 0, 8}, // test 4
+    { {10, 11}, 2, 1, 11},  // test 5
+    { {8, -2, 9, 0, 13}, 5, 0, -2 },
+    { {8, -2, 9, 0, 13}, 5, 1, 0 },
+    { {8, -2, 9, 0, 13}, 5, 2, 8 },
+    { {8, -2, 9, 0, 13}, 5, 3, 9 },
+    { {8, -2, 9, 0, 13}, 5, 4, 13 }
+    // da problemas el partition, a la hora de buscar elementos de mas de 2. se necesita recursion
     };
     int result;
 
@@ -63,9 +50,11 @@ int main() {
 
         result = k_esimo(tests[i].a, tests[i].length, tests[i].k);
         if (result == tests[i].result) {
-            printf("OK\n");
+            printf("OK. numero esperado: %d \n", result);
+            // printf("OK\n");
         } else {
-            printf("FAILED\n");
+            printf("FAILED. numero esperado: %d \n", result);
+            // printf("FAILED\n");
         }
     }
 

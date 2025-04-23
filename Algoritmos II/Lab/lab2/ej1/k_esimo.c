@@ -1,6 +1,7 @@
 #include <stdbool.h>
 #include "k_esimo.h"
-#include "assert.h"
+#include <stdio.h> // added by me
+#include "assert.h" // added by me
 // FUNCIONES INTERNAS DEL MÓDULO:
 int partition(int a[], int izq, int der);
 bool goes_before(int x, int y);
@@ -27,14 +28,33 @@ int k_esimo(int a[], int length, int k) {
         
     // debo de usar partition: "la idea es explotar el hecho de que el procedimiento de partition del quiccksor..."
     // "numero natural k <= n"
-    unsigned int pivot = partition(a, 0, (length == 0) ? 0 : length - 1);
+    int left = 0;
+    int right = (length == 0) ? 0 : length - 1;
+    unsigned int pivot = partition(a, left, right);
     assert(k <= a[length - 1]); // added by me, para q retorne lo q quiero
-    if (k <= a[length - 1]) {
+    /* codigo de el profe, 4 test error
+    int ppiv, lft, rgt;
+    lft = 0;
+    rgt = length - 1;
+    ppiv = partition(a, lft, rgt);
+    while (ppiv != k) {
+        if (ppiv < k) {
+            lft = ppiv + 1;
+        } else {
+            rgt = ppiv - 1;
+        }
+        ppiv = partition(a, lft, rgt);
+    }
+    return a[k];
+     */
+    // mi codigo, 3 test failed. medio raro xd
+    if (k != a[length - 1]) { // se comporta igual que k <= a[length - 1]
+        //printf("el posicion es: %d y su pivot : %d \n", pivot, a[pivot]);
         swap(a, a[pivot], a[k]);
         // no deberia de estar array_is_sorted? por que dice SI ESTUVIERA ordenado, deberia de asumirlo
     }
-    return a[k];
     // return 0; <-- old
+    return a[k];
 }
 
 int partition(int a[], int izq, int der) {

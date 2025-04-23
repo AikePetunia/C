@@ -13,29 +13,23 @@
  * @param length Largo del arreglo.
  */
 bool tiene_cima(int a[], int length) {
-    // se tiene que
-    // H son los mayores a K
-    // N los menores a K
-    //  H >= K <= N    
-    bool hasCimaIzq, hasCimaDer, hasCima = false;
+    bool hasCima;
 
-    int k = (length) / 2; // como determino bien bien?
+    int k = 0;
+    int j = 0; 
     // entonces, debo de ver una parte, y luego la otra
-    for (int i = 0; i < length; i++) {
-        while (a[i] >= a[k]) {
-            hasCimaIzq = true;
-            i++;
+        while (a[k] >= a[k+1]) {
+            k++;
         }
-    }
     
-    for (int j = k; k < length; j++) {
-        while(a[j] <= a[k]) {
-            hasCimaDer = true; 
+        while(a[j] <= a[j+1]) {
             j++;
         }
-    }
+
+    // tiene cima si llegamos al final
+    hasCima = j == length - 1;
         
-    return hasCima = hasCimaDer && hasCimaIzq;
+    return hasCima;  
 }
 
 /**
@@ -51,23 +45,21 @@ bool tiene_cima(int a[], int length) {
  * @param length Largo del arreglo.
  */
 int cima(int a[], int length) {
-    bool hasCimaIzq, hasCimaDer, hasCima = false;
+    bool hasCima;
 
-    int k = (length) / 2; // como determino bien bien?
+    int k = 0;
+    int j = 0; 
     // entonces, debo de ver una parte, y luego la otra
-    for (int i = 0; i < length; i++) {
-        while (a[i] >= a[k]) {
-            hasCimaIzq = true;
-            i++;
+        while (a[k] >= a[k+1]) {
+            k++;
         }
-    }
-    
-    for (int j = k; k < length; j++) {
-        while(a[j] <= a[k]) {
-            hasCimaDer = true; 
+        while(a[j] <= a[j+1]) {
             j++;
         }
-    }
+
+    // tiene cima si llegamos al final
+    hasCima = j == length - 1;
+        
     if (hasCima) {
         printf("la cima es %d", a[k]);
     } else {

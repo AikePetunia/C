@@ -3,8 +3,8 @@
 #include "cima.h"
 
 int main(void) {
-    int a[] = {1, 8, 9, 5, 0, 3} ;
-    int length = 6;
+    int a[] = {1, 2, 3, 4, 5} ;
+    int length = 5;
     int result;
 
     result = cima(a, length);
