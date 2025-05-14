@@ -21,11 +21,11 @@ static void insert(int a[], unsigned int i, unsigned int length) {
     int j = i;// so we can compare from the beggining, we start at the left.
     
     if (!array_is_sorted(a, length)) { // inv ? 
-    while (j > 0 && !goes_before(a[j-1], a[j])) {
-        swap(a, j, j-1);
-        j = j - 1;
-    }
-
+        // !goes_before nos dice que si el anterior es menor
+        while (j > 0 && !goes_before(a[j-1], a[j])) {
+            swap(a, j, j-1);
+            j = j - 1;
+        }
     }
     
     // es void, no debe retornar nada

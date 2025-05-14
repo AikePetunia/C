@@ -28,8 +28,7 @@ void print_board(char board[3][3])
     }
 }
 
-char get_winner(char board[3][3])
-{
+char get_winner(char board[3][3]) {
     char winner = '-';
     /* 8 possible winner movements, otherwise is a tie
        i is column, j is row  */

@@ -75,5 +75,8 @@ int main(int argc, char *argv[]) {
 gcc -Wall -Werror -Wextra -pedantic -std=c99 -c array_helpers.c sort.c sort_helpers.c main.c
 gcc -Wall -Werror -Wextra -pedantic -std=c99  array_helpers.o sort.o sort_helpers.o main.o -o sorter
 
+gcc -g -Wall -Werror -Wextra -pedantic -std=c99 -c array_helpers.c sort.c sort_helpers.c main.c
+gcc -g -Wall -Werror -Wextra -pedantic -std=c99  array_helpers.o sort.o sort_helpers.o main.o -o sorter
+gdb ./sorter
 
 */

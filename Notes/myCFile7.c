@@ -1,5 +1,5 @@
 #include <stdio.h>
-
+#include <stdlib.h> // <- For malloc()
 void printAge(int *pAge) // por que paso pAge
 {
     printf("Age: %d \n", *pAge); //deference
@@ -21,8 +21,8 @@ int main () {
     printf("Adress age: %p \n ", &age); // */*
     printf("Value  pAge: %p \n\n ", &pAge); 
 
-    printf ( "size of age: %d bytes\n", sizeof(age));
-    printf ( "size of pAge: %d bytes\n\n", sizeof(pAge));
+    printf ("size of age: %d bytes\n", sizeof(age));
+    printf ("size of pAge: %d bytes\n\n", sizeof(pAge));
     
     printf("Value of age: %d \n", age);
     printf("Value  at stored adress: %p \n ", *pAge);  //deferencing
@@ -30,10 +30,59 @@ int main () {
     //podemos guardar en una variable el lugar de  memory Adress ( */* )
 
     //se puede pasar un puntero como un argumento a una funcion
-
+    // el sizeof() de una estrucutra es >= a la suma del sizeof() de sus miembros
     printAge(pAge);
 
+    /* 
+        Sobre padding: https://www.youtube.com/watch?v=of2kZkUDApw&list=PLLfC2vEod54J7vzFIeX23iyaSAjFhevQV&index=8&t=240s 
+        typedef struct {
+            char name[30];   // 30 bytes
+            int age;         // 4 bytes (requiere alineación de 4)
+            int height;      // 4 bytes
+        } data_t;
+    name: empieza en offset 0 → ocupa del 0 al 29 (30 bytes).
+
+    age: empieza en offset 30 → pero ¡30 no es múltiplo de 4!
+
+        Solución: el compilador mete 2 bytes de padding después de name → ahora age empieza en 32.
+
+    age: ocupa 4 bytes (32 a 35)
+
+    height: empieza en 36, ocupa hasta 39.
+
+        */
+
+    // Malloc() = memory allocation 
+    /* 
+        #include <stdlib.h> <- For malloc()
+        Una funcion en c que aloja dinamicamente un numero de bits en memoria
+    */
+    int number = 0;
+    printf("Introduce un numero para el largo del arreglo");
+    scanf("%d", &number);
+    // si falla el malloc, retornará null y dara Segmention Fault
     
+    char *grades = malloc(number * sizeof(char)); // numero de bytes reservado por el puntero en la memoria
+    
+    if (grades == NULL) {
+        printf("Malloc failed \n" );
+        return 1;
+    } 
+
+    for (int i = 0; i < number; i++) {
+        printf("enter grade #%d", i+1);
+        scanf(" %c", &grades[i]);
+    }
+
+    for (int i = 0; i < number; i++) {
+        printf(" %c", grades[i]);
+    }
+
+    free(grades); // liberemas el espacio ocupado por Grades
+    grades = NULL; // reseteamos el valor de grades. Prevee "Dangling pointers"
+
+    // cuando la memoria se reserva, se le conoce como "Heap" <-- Rentamos espacio de acá
+    // Cuando usamos memoria, viene de "Stack"
     //Escribiendo archivos.
 
     /*

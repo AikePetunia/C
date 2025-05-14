@@ -55,7 +55,7 @@ void table_from_file(WeatherTable a, const char *filepath) {
         exit(EXIT_FAILURE);
     }
 
-    unsigned int k_year = 0u;// declaracion de unsigned
+    unsigned int k_year = 0u; // declaracion de unsigned
     unsigned int k_month = 0u;
     unsigned int k_day = 0u;
 

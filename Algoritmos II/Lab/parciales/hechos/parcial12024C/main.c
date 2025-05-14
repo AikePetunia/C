@@ -122,3 +122,15 @@ int main(int argc, char *argv[]) {
     return (EXIT_SUCCESS);
 }
 
+/*
+run:
+gcc -Wall -Werror -Wextra -pedantic -std=c99 -c array_helpers.c cell.c main.c
+gcc -Wall -Werror -Wextra -pedantic -std=c99 array_helpers.o cell.o main.o -o battleboard
+./battleboard ./battles/battle1.in
+
+debug:
+gcc -g -Wall -Werror -Wextra -pedantic -std=c99 -c array_helpers.c cell.c main.c
+gcc -g -Wall -Werror -Wextra -pedantic -std=c99 array_helpers.o cell.o main.o -o battleboard
+gdb ./battleboard ./battles/battle1.in
+run ./battles/battle1.in
+*/

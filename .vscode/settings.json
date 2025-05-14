@@ -72,6 +72,9 @@
 		"string.h": "c",
 		"array_helpers.h": "c",
 		"stock.h": "c",
-		"cmath": "c"
+		"cmath": "c",
+		"data.h": "c",
+		"stdbool.h": "c",
+		"assert.h": "c"
 	}
 }
