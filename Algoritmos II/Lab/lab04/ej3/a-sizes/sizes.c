@@ -25,26 +25,19 @@ int main(void) {
             sizeof(messi.height), sizeof(data_t)
         );
 
-
     printf("[Manera 1] Direccion de memoria de cada campo: \n");
-    /*
-    printf("Dirección de name: %p \n",
-            "Dirección de age: %p \n",
-            "Dirección de height: %p \n",
-            (void *)messi.name, (void *)messi.age, 
-            (void *)messi.height
+    printf("Dirección de name: %p \nDirección de age: %p \nDirección de height: %p \n",
+            (void *)&messi.name, (void *)&messi.age, 
+            (void *)&messi.height
             );
-    */
-    
     printf("direccion de name %p    \n", (void*)messi.name);
-    printf("direccion de age %p     \n", (void*)messi.age);
-    printf("direccion de height %p  \n", (void *)messi.height);
+    printf("direccion de age %p     \n", (void*)&messi.age);
+    printf("direccion de height %p  \n", (void*)&messi.height);
 
     printf("[Manera 2] Direccion de memoria de cada campo: \n");
-    
     printf("direccion de name %lu    \n", (uintptr_t)messi.name);
-    printf("direccion de age %lu     \n", (uintptr_t)messi.age);
-    printf("direccion de height %lu  \n", (uintptr_t)messi.height);
+    printf("direccion de age %lu     \n", (uintptr_t)&messi.age); // prints the age??
+    printf("direccion de height %lu  \n", (uintptr_t)&messi.height); // prints the height??
 
     
     /*printf(" Dirección de name: %lu\n",
