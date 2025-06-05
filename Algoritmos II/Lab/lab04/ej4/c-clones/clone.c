@@ -2,12 +2,14 @@
 #include <stdio.h>
 #include <string.h>
 #include "ansicolors.h"
-
 #define MAX_LENGTH 1820
 
 char *string_clone(const char *str, size_t length) {
     char clon[MAX_LENGTH];
-    char *output=clon;
+    char *output=malloc(length + 1);
+    if (output == NULL) {
+        return NULL; 
+    }
     for (size_t i=0; i<length;i++) {
         output[i] = str[i];
     }
@@ -15,6 +17,7 @@ char *string_clone(const char *str, size_t length) {
     return output;
 }
 
+// Problemas de memoria con length
 
 int main(void) {
     char original[]=""
@@ -23,16 +26,16 @@ int main(void) {
          "         _______..___________.     ___      .______             \n"
          "        /       ||           |    /   \\     |   _  \\          \n"
          "       |   (----``---|  |----`   /  ^  \\    |  |_)  |          \n"
-         "        \\   \\        |  |       /  /_\\  \\   |      /        \n"
+         "        \\   \\      |  |       /  /_\\  \\   |      /        \n"
          "    .----)   |       |  |      /  _____  \\  |  |\\  \\----.    \n"
          "    |_______/        |__|     /__/     \\__\\ | _| `._____|     \n"
          "                                                                \n"
          "____    __    ____      ___      .______           _______.     \n"
-         "\\   \\  /  \\  /   /     /   \\     |   _  \\         /       |\n"
-         " \\   \\/    \\/   /     /  ^  \\    |  |_)  |       |   (----` \n"
-         "  \\            /     /  /_\\  \\   |      /         \\   \\    \n"
+         "\\   \\  /  \\  /  /     /   \\     |   _  \\         /       |\n"
+         " \\   \\/    \\/  /     /  ^  \\    |  |_)  |       |   (----` \n"
+         "  \\             /     /  /_\\  \\  |      /         \\   \\    \n"
          "   \\    /\\    /     /  _____  \\  |  |\\  \\----..----)   |   \n"
-         "    \\__/  \\__/     /__/     \\__\\ | _| `._____||_______/     \n"
+         "    \\__/  \\__/     /__/     \\__\\| _| `._____||_______/     \n"
          "\n\n\n"
          "                           Episode II \n\n"
          "                      ATTACK OF THE CLONES\n\n"
@@ -67,7 +70,12 @@ int main(void) {
     copy[5] = 'g';
     printf("Copia   :\n" ANSI_CYAN
            " %s\n", copy);
+           free(copy);
 
     return EXIT_SUCCESS;
 }
 
+/* 
+gcc -Wall -Werror -Wextra -pedantic -std=c99 clone.c
+valgrind --track-origins=yes ./clone
+*/

@@ -11,14 +11,15 @@
 
 int main(void) {
     char user_input[MAX_LENGTH];
-    char ignore_chars[] = {' ', '?', '!', ',', '-', '.'};
+    char ignore_chars[] = {' ', '?', '!', ',', '-', '.', '\n'};
     char *filtered=NULL;
 
     printf("Ingrese un texto (no más de %d símbolos) para verificar palíndromo: ", MAX_LENGTH);
-    scanf("%s", user_input);
+    fgets(user_input, MAX_LENGTH, stdin);
     filtered = string_filter(user_input, ignore_chars[0]);
     for (unsigned int i=0; i < SIZEOF_ARRAY(ignore_chars); i++) {
         filtered = string_filter(filtered, ignore_chars[i]);
+        free(filtered);
     }
 
     printf("El texto:\n\n"
@@ -27,3 +28,7 @@ int main(void) {
     return EXIT_SUCCESS;
 }
 
+/*
+gcc -Wall -Werror -Wextra -pedantic -std=c99 checkpal.c strfuncs.c
+Doesn't work)?
+*/
