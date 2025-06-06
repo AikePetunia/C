@@ -10,6 +10,7 @@
     ! difficult to insert or delete elements, implies moving all elements, etc, etc.asm
 
     * linked list: 
+    self referential structure in c. (Like a recursion)
     composed in a big chain of nodes 
     non-contiguos. 
     no index, but contains a adress to the next node.
