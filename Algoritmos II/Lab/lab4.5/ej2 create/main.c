@@ -19,8 +19,11 @@ typedef Node *List; // define que List apunta al struct de Node
 /**
  * @brief Construye y devuelve una lista de ejemplo de 3 elementos
  */
+/*
+entonces, es algo que se crea a partir de un nodo q apunta a otro q apunta a otro
+*/
 List setup_example() {
-    // Crear → Asignar data → Enlazar al anterior → Avanzar el puntero.
+    // Crear → Asignar data → Enlazar al anterior → Avanzar nodo.
     int i = 20;
     Node *Head = malloc(sizeof(*Head)); // first node, reserve space
     Node *head = NULL;       // comienzo de la lista
@@ -34,7 +37,7 @@ List setup_example() {
         // "caso base"
         if (head == NULL) {
             head = newNode;       // el primer nodo
-            current = head;       // también empieza aquí
+            current = head;       //  entonces, si se creo un nodo, es el current.
         // "caso recursivo" (repetidos)
         } else {
             current->next = newNode;
