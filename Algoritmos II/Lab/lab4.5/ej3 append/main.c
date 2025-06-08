@@ -13,7 +13,6 @@ typedef Node *List;
  */
 List setup_example() {
     int i = 20;
-    Node *Head = malloc(sizeof(*Head));
     Node *head = NULL;
     Node *current = NULL;
 
@@ -31,7 +30,6 @@ List setup_example() {
         }
     }
 
-    Head->next = NULL;
     return head;
 }
 
@@ -41,6 +39,7 @@ List setup_example() {
  * Precondicion: la lista xs no debe ser vacía
  */
 void append_example(List xs) {
+    // encontrar último nodo -> crear el nuevo nodo -> attachearlo a los nodos viejos
     if (xs != NULL) { // la lista enlazada no está vacia (pre)
         // avanza de nodo, donde xs es null
         while(xs->next != NULL) {
@@ -48,7 +47,7 @@ void append_example(List xs) {
         }
         // nuevo nodo
         Node *newNode = malloc(sizeof(Node));
-        // paso 4 valor nuevo
+        // valor nuevo
         newNode->data = 88;
         // nuevo final
         newNode->next = NULL;

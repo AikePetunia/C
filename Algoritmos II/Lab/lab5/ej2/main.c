@@ -15,9 +15,9 @@ void print_help(char *program_name) {
 
 FILE * open_input_file(const char *filepath) {
     FILE *file = NULL;
-    file = fopen(filepath, "r");
+    file = fopen(filepath, "r \n");
     if (file == NULL) {
-        fprintf(stderr, "File does not exist.\n");
+        fprintf(stderr, "File does not exist.\n \n");
         exit(EXIT_FAILURE);
     }
     return (file);
@@ -38,21 +38,28 @@ char *parse_filepath(int argc, char *argv[]) {
 }
 
 bool matching_parentheses(FILE * file) {
+     printf("iniciado el matchingParenthesis \n");
     counter c = NULL;
     bool balanced = true;
     char letter;
+    c = counter_init();
 
     while (!feof(file) && balanced) {
+         // printf("iniciado el bucle while matchingParenthesis \n");
         letter = fgetc(file);
         if (letter == '(') {
-            counter_inc(c);
+             printf("se encontró un '(' \n");
+            counter_inc(c); 
         } else if (counter_is_init(c)) {
-            balanced = (letter != ')');
+            balanced = (letter != ')'); // o sea (
         } else if (letter == ')') {
+             printf("se encontró un ')' \n");
             counter_dec(c);
         }
     }
-    return (balanced && counter_is_init(c));
+    bool is_init = counter_is_init(c);
+    counter_destroy(c);
+    return (balanced && is_init);
 }
 
 int main(int argc, char *argv[]) {
@@ -67,9 +74,9 @@ int main(int argc, char *argv[]) {
 
     /* call the function for the matching parentheses check */
     if (matching_parentheses(file)) {
-        printf("Parentheses match.\n");
+        printf("Parentheses match.\n \n");
     } else {
-        printf("Parentheses mismatch.\n");
+        printf("Parentheses mismatch.\n \n");
     }
 
     return (EXIT_SUCCESS);

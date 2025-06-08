@@ -15,5 +15,12 @@ These flags mean:
 -g: Include debugging information
 -o myprogram: Specify output file name
 
-// debug:
+debug:
+
+gcc -Wall -Werror -Wextra -pedantic -std=c99 -g counter.o main.o -o counter
+gdb ./counter
+run input/balanced.in (if it need a inpout)
+print
+step
+
 */

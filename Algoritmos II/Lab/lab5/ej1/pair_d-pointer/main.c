@@ -2,9 +2,14 @@
 #include <stdio.h>   /* printf()...     */
 #include "pair.h"    /* TAD Par         */
 
-static
+// added this for compilation
+struct s_pair_t {
+    int fst;
+    int snd;
+};
+
 void show_pair(pair_t p) {
-    printf("(%d, %d)\n", p.fst, p.snd);
+    printf("(%d, %d)\n", p->fst, p->snd);
 }
 
 int main(void) { 
@@ -34,3 +39,6 @@ int main(void) {
 
     return EXIT_SUCCESS;
 }
+
+// sí esta bien que falle por falta del struct que está definido en pair.h
+// sí logra el encapsulamiento debido a que el struct se define en main y no en el TAD.

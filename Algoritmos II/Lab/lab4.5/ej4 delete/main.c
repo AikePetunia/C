@@ -15,7 +15,6 @@ typedef Node *List;
 List setup_example() {
    // crear -> asignar -> enlazar anterior -> avanzar nodo
    int i = 20;
-   Node *Head = malloc(sizeof(*Head)); // iniciamos el primer nodo con el tamaño adecuado
    Node *head = NULL;       // los punteros se inicializan en null si no tienen asignacion inmediata
    Node *current = NULL;    // para ir agregando (Nodo auxiliar)
 
@@ -35,7 +34,6 @@ List setup_example() {
             i -= 10;
    }
 
-   Head->next = NULL;
    return head;
 }
 
@@ -49,7 +47,7 @@ List tail_example(List xs) {
    if (xs != NULL) {    
     Node *temp  = xs; // guardo el primer nodo (lo que apunta xs ahora)
     xs = (xs)->next; // avanzo al segundo nodo
-        free(temp); // libero el primer nodo 
+    free(temp); // libero el primer nodo 
    }
    return xs; // devuelvo el nuevo inicio de la lista
 }

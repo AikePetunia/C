@@ -25,7 +25,6 @@ entonces, es algo que se crea a partir de un nodo q apunta a otro q apunta a otr
 List setup_example() {
     // Crear → Asignar data → Enlazar al anterior → Avanzar nodo.
     int i = 20;
-    Node *Head = malloc(sizeof(*Head)); // first node, reserve space
     Node *head = NULL;       // comienzo de la lista
     Node *current = NULL;    // para ir agregando
 
@@ -45,7 +44,6 @@ List setup_example() {
         }
     }
 
-    Head->next = NULL;
     return head;
 }
 
@@ -67,3 +65,9 @@ int main(void) {
 
     return 0;
 }
+
+/*
+usuario@phdsec:~/Development/C/Algoritmos II/Lab/lab4.5/ej2 create$ gcc -Wall -Wextra -pedantic -std=c99 main.c -o main
+usuario@phdsec:~/Development/C/Algoritmos II/Lab/lab4.5/ej2 create$ ./main 
+[ 20, 10, 0, ]
+*/

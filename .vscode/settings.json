@@ -75,6 +75,7 @@
 		"cmath": "c",
 		"data.h": "c",
 		"stdbool.h": "c",
-		"assert.h": "c"
+		"assert.h": "c",
+		"list.h": "c"
 	}
 }

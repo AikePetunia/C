@@ -34,3 +34,5 @@ int main(void) {
 
     return EXIT_SUCCESS;
 }
+
+// que se usa un tipo enum 
