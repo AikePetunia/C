@@ -33,17 +33,25 @@ char *parse_filepath(int argc, char *argv[]) {
 
 
 float average(list l) {
-/*
-    Needs implementation.
-*/
+    float elem, res;
+    int size = length(l);
+    list l_aux = copy_list(l);
+
+    while (!is_empty(l_aux)) {
+        elem = head(l_aux);
+        res += elem;
+        l_aux = tail(l_aux);
+    }
+    destroy(l_aux);
+    return (res / size);
 }
 
 list array_to_list(int array[], unsigned int length) {
-    /* Initialize the list */
+    list l = empty();
     for (unsigned int i = 0u; i < length; ++i) {
-        /* Add element to the list  */
+        l = addr(l, array[i]);
     }
-    /* Return list */
+    return l;
 }
 
 int main(int argc, char *argv[]) {
