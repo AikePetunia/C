@@ -76,6 +76,9 @@
 		"data.h": "c",
 		"stdbool.h": "c",
 		"assert.h": "c",
-		"list.h": "c"
+		"list.h": "c",
+		"string": "c",
+		"string_view": "c",
+		"initializer_list": "c"
 	}
 }

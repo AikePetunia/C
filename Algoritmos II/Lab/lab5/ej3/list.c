@@ -3,17 +3,17 @@
 #include <assert.h>
 #include <stdio.h>
 
-typedef int list_elem;
+typedef int elem;
 
-typedef struct node {
-    list_elem data;         // int
-    struct node *next;
-} node; 
+typedef struct _list {
+    elem data;         // int
+    struct _list *next;
+} _list; 
 
-typedef struct node * list;
+typedef struct _list * list;
 
 // liberacion de memoria
-void destroy(list l) {
+void destroy_list(list l) {
     while (l != NULL) {
         list temp = l;
         l = l->next;
@@ -40,15 +40,15 @@ int length (list l) {
 }
 
 // agrega un elemento al comienzo de la lista
-list addl (list l, list_elem e)  {
-    list nl = malloc(sizeof(list));
+list addl (elem e, list l)  {
+    list nl = malloc(sizeof(struct _list));
     nl->data = e;
     nl->next = l;
     return nl;
 }   
 
-list addr(list l, list_elem e) {
-    list p, q = malloc(sizeof(list)); // creamos dos elementos más, uno para aputnar al final y otro para guardar el valor final, para después agregar el elemento
+list addr(list l, elem e) {
+    list p, q = malloc(sizeof(struct _list)); // creamos dos elementos más, uno para aputnar al final y otro para guardar el valor final, para después agregar el elemento
     q->data = e;  // guardamos el elemento
     q->next = NULL;
     if (!is_empty(l)) {
@@ -65,7 +65,7 @@ list addr(list l, list_elem e) {
 // agrega elementos al final de la lista 
 
 /* operations */
-list_elem head (list l) {
+elem head (list l) {
     assert(!is_empty(l));
     // o if (xs != NULL);
     return l->data;
@@ -86,10 +86,13 @@ list tail(list l) {
 
 
 // Devuelve el n-ésimo elemento de la lista l
-list_elem list_index(list l, int n) {
+elem index(list l, int n) {
+    // printf("[index] el assert \n");
     assert(length(l) > n);
+    // printf("[index] pasado el assert \n");
     list temp = l;              // copia temp de la lista
     for (int i = 0; i < n; i++) {
+        // printf("en el bucle for \n");
         temp = temp->next; // mientras no estemos en el index, avanzamos de nodo
     }
     return temp->data; // retornamos el dato en el index
@@ -99,12 +102,11 @@ list_elem list_index(list l, int n) {
 list copy_list(list l) {
     list current = NULL;
     list head = NULL;
-    
 
     while (l != NULL) { // mientras no estemos en el final de la lista
-        list l2 = malloc(sizeof(struct node)); // si copio el nodo, tengo espacio para el dato y el siguiente nodo
+        list l2 = malloc(sizeof(struct _list)); // si copio el nodo, tengo espacio para el dato y el siguiente nodo
         l2->data = l->data; // copyes l2 data to l
-        l2->next = NULL; // sinces we don't know if it ended, a good practice is to keep the last node with null
+        l2->next = NULL; // sinces we don't know if it ended, a good practice is to keep the last _list with null
         
         if (head == NULL) { // only with the first case 
             head = l2;      // como ya iteramos por primera vez, sabemos que el nuevo nodo es l2
@@ -113,7 +115,7 @@ list copy_list(list l) {
             current->next = l2; // el siguiente nodo es un l2 si es que no es null
             current = l2; 
         }
-        l = l->next; // advance the new node
+        l = l->next; // advance the new _list
     }    
     return head;
 
@@ -121,14 +123,13 @@ list copy_list(list l) {
 
 // Deja en l sólo los primeros n elementos, eliminando el resto
 list take(list l, int n) {
-    assert(n <= length(l));
-    if (n == 0 || l == NULL) {
-        destroy(l);
+    if (n >= length(l)) {
+        return l;
+    } if (n == 0 || l == NULL) {
+        destroy_list(l);
         return NULL;
     }
-    if (n == length(l)) {
-        return l;
-    }
+    
 
     list current = l;
     list original = l;
@@ -143,7 +144,7 @@ list take(list l, int n) {
     //desconecta la lista
     current->next = NULL;
 
-    destroy(to_remove); // borramos lo que va después del index de take.
+    destroy_list(to_remove); // borramos lo que va después del index de take.
     return original;
 }   
 
@@ -152,7 +153,7 @@ list drop (list l, int n) {
     // same logic as take but backwards
     assert (n<=length(l));
     if (n == 0 || l == NULL) {
-        destroy(l);
+        destroy_list(l);
         return NULL;
     }
     if (n == length(l)) {
@@ -182,6 +183,7 @@ list concat (list l, list l0) {
     list p, q;
     p = copy_list(l0); // copio pasando la lista
     q = l; // paso q como l
+    
     // asi tengo ambas copias:
     // pasa los elementos
     while (q->next != NULL){
@@ -194,11 +196,16 @@ list concat (list l, list l0) {
 }
 
 void print_list(list l) {
-    printf("[ \n");
+    printf("[ \n \n");
     while (l != NULL) {
         printf("%d", l->data);
         l = l->next;
     }
-    printf("] \n");
+    printf("] \n \n");
 }
 
+/* 
+! borre sin querer el file original de list.c de este directorio
+! este archivo es una copia y quiza algun parametro o nombre de funcion este fallado. Pero pasa los tests
+! lab 5.5.
+ */

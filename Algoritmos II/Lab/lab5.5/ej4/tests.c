@@ -10,8 +10,7 @@
 // construye una lista a partir de un arreglo
 // (usa los constructores de lista empty y addl)
 list array_to_list(int array[], int length) {
-    list result;
-    result = empty();
+    list result = empty();
 
     // agregamos al revés ya que usamos addl
     for (int i = length; i > 0; i--) {
@@ -112,7 +111,7 @@ void test_length() {
 
     // casos de test (uno por línea)
     struct length_testcase tests[N_TESTCASES_LENGTH] = {
-      { {}, 0 },            // testea: length([]) == 0
+      { { }, 0 },            // testea: length([]) == 0
       { {-2}, 1 },          // testea: length([-2]) == 1
       { {1, -2}, 2 },       // testea: length([1, -2]) == 2
       { {8, 1, -2}, 3 },    // testea: length([8, 1, -2]) == 3

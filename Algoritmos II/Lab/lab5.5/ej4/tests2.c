@@ -50,7 +50,7 @@ void test_tail() {
 
     // casos de test (uno por línea)
     struct tail_testcase tests[N_TESTCASES_TAIL] = {
-      { {-2}, 1, {}, 0 },             // testea: tail([-2]) == []
+      { {-2}, 1, { }, 0 },             // testea: tail([-2]) == []
       { {1, -2}, 2, {-2}, 1 },        // testea: tail([1, -2]) == [-2]
       { {8, 1, -2}, 3, {1, -2}, 2 },  // testea: tail([8, 1, -2]) == [1, -2]
     };
@@ -100,7 +100,7 @@ void test_addr() {
       { {8, 1, -2}, 3, 44, {8, 1, -2, 44}, 4 },  // testea: addr([8, 1, -2], 44) == [8, 1, -2, 44]
       { {1, -2}, 2, 44, {1, -2, 44}, 3 },        // testea: addr([1, -2], 44) == [1, -2, 44]
       { {-2}, 1, 44, {-2, 44}, 2 },              // testea: addr([-2], 44) == [-2, 44]
-      { {}, 0, 44, {44}, 1 },                    // testea: addr([], 44) == [44]      
+      { { }, 0, 44, {44}, 1 },                    // testea: addr([], 44) == [44]      
     };
 
     list input;
@@ -145,7 +145,7 @@ void test_take() {
 
     // casos de test (uno por línea)
     struct take_testcase tests[N_TESTCASES_TAKE] = {
-      { {8, 1, -2}, 3, 0, {}, 0 },          // testea: take([8, 1, -2], 0) == []
+      { {8, 1, -2}, 3, 0, { }, 0 },          // testea: take([8, 1, -2], 0) == []
       { {8, 1, -2}, 3, 1, {8}, 1 },         // testea: take([8, 1, -2], 1) == [8]
       { {8, 1, -2}, 3, 2, {8, 1}, 2 },      // testea: take([8, 1, -2], 2) == [8, 1]
       { {8, 1, -2}, 3, 3, {8, 1, -2}, 3 },  // testea: take([8, 1, -2], 3) == [8, 1, -2]
