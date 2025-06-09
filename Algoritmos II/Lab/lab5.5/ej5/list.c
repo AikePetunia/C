@@ -2,6 +2,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include "list.h"
+#include <stdio.h>
 
 #define MAX_LENGTH 100
 
@@ -10,9 +11,6 @@ struct _list {
     int size;               // cantidad de elementos válidos
 };
 
-typedef int elem;
-typedef struct _list *list;
-
 // liberacion de memoria
 void destroy_list(list l) {
     free(l);
@@ -20,12 +18,11 @@ void destroy_list(list l) {
 
 // Constructors
 list empty() {
-    list l;
-    return l->size = 0;
-}
-
-bool is_empty(list l) {
     list l = malloc(sizeof(struct _list));
+    l->size = 0;
+    return l;
+}
+bool is_empty(list l) {
     l->size = 0;
     return l; 
 }
@@ -84,11 +81,9 @@ elem head (list l) {
     // o if (xs != NULL);
     // return l->data;
     return l->elems[0];
-
 }
-// devuelve el primer elemento de la lsita 
-// pre: !is_empty.  
 
+//Removes in-place the first element of list `l`.
 list tail(list l) {
     assert(l->size > 0);
     for (int i = 1; i < l->size; i++) {
@@ -105,12 +100,13 @@ list tail(list l) {
     return l;    
     */
 }
-//elimina el primer elemento de la lista
 
 
 // Devuelve el n-ésimo elemento de la lista l
 elem index(list l, int n) {
     assert(n >= 0 && n < l->size);
+    // printf("el numero recibido de n es %d \n", n);
+    // printf("el numero a devolver es %d \n", l->elems[n]);
     return l->elems[n];
     /*
     // printf("[index] el assert \n");
@@ -127,7 +123,14 @@ elem index(list l, int n) {
 
 // Copia todos los elementos de l1 en la nueva lista l2 
 list copy_list(list l) {
-
+    list newElem;
+    newElem = malloc(sizeof(struct _list));
+    int i = 0;
+    newElem->size = l->size;
+    while(i < l->size) {
+        newElem->elems[i] = l->elems[i];
+    }
+    return newElem;
     /*
     list current = NULL;
     list head = NULL;
@@ -152,6 +155,12 @@ list copy_list(list l) {
 
 // Deja en l sólo los primeros n elementos, eliminando el resto
 list take(list l, int n) {
+    // me siento rara haciendo que no haya un assert si es más grande n q el leng
+    if (n >= length(l)) {
+        return l;
+    }
+    l->size = n; // devuelvo el arreglo en el tamaño n
+    return l;
     /*
     if (n >= length(l)) {
         return l;
@@ -181,6 +190,14 @@ list take(list l, int n) {
 
 // Elimina los primeros n elementos de l
 list drop (list l, int n) {
+    assert(n <= l->size);
+    for (int i = n; i < l->size; i++) {
+        l->elems[i - n] = l->elems[i];
+    }
+    l->size -= n;
+    return l;
+
+
     /*
     // same logic as take but backwards
     assert (n<=length(l));
@@ -211,8 +228,21 @@ list drop (list l, int n) {
     */
 }
 
-// agrega al final de todos los l todos los lemenetos de l1 en el mismo orden
+// agrega al final de todos los l todos los lemenetos de l0 en el mismo orden
 list concat (list l, list l0) {
+    assert(l->size <= MAX_LENGTH);
+    assert(l0->size <= MAX_LENGTH);
+    assert(l->size + l0->size <= MAX_LENGTH);
+
+    int i = 0;
+    while (i <= l0->size) {
+        l->elems[l->size] = l0->elems[i];
+        l->size++;
+        i++;
+    }
+    return l;
+
+
     /*
     list p, q;
     p = copy_list(l0); // copio pasando la lista

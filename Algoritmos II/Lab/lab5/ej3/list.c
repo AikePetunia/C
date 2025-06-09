@@ -103,7 +103,7 @@ list copy_list(list l) {
     list current = NULL;
     list head = NULL;
 
-    while (l != NULL) { // mientras no estemos en el final de la lista
+    while (l != NULL) { 
         list l2 = malloc(sizeof(struct _list)); // si copio el nodo, tengo espacio para el dato y el siguiente nodo
         l2->data = l->data; // copyes l2 data to l
         l2->next = NULL; // sinces we don't know if it ended, a good practice is to keep the last _list with null
@@ -118,7 +118,6 @@ list copy_list(list l) {
         l = l->next; // advance the new _list
     }    
     return head;
-
 }
 
 // Deja en l sólo los primeros n elementos, eliminando el resto
