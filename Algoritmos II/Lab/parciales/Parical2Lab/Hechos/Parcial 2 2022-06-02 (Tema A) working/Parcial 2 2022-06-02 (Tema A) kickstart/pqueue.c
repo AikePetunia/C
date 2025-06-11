@@ -117,7 +117,7 @@ pqueue pqueue_dequeue(pqueue q) {
 pqueue pqueue_destroy(pqueue q) {
      // assert(invrep(q));
     free(q);
-    q = NULL;
+q = NULL;
     assert(q == NULL);
     return q;
 }
