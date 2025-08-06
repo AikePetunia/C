@@ -75,6 +75,8 @@ struct point {
 /*
     ! Encapsulation in ADTs
 
+    básicamente que el header tenga un puntero al structu de el tad, pudiendo no modificar nunca el struct interno del tad
+    con el cual se necesita operar
     * Encapsulation ensures that the state of an ADT can only be accessed through its provided operations
     * It maintains a strict separation between specification (interface) and implementation (internal details)
     * This separation allows changing the implementation without modifying any code that uses the ADT

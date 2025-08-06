@@ -2,15 +2,13 @@
 #include <stdbool.h>
 #include <assert.h>
 #include <stdio.h>
+#include "list.h"
 
-typedef int elem;
-
-typedef struct _list {
+struct _list {
     elem data;         // int
     struct _list *next;
-} _list; 
+}; 
 
-typedef struct _list * list;
 
 // liberacion de memoria
 void destroy_list(list l) {
@@ -87,9 +85,7 @@ list tail(list l) {
 
 // Devuelve el n-ésimo elemento de la lista l
 elem index(list l, int n) {
-    // printf("[index] el assert \n");
     assert(length(l) > n);
-    // printf("[index] pasado el assert \n");
     list temp = l;              // copia temp de la lista
     for (int i = 0; i < n; i++) {
         // printf("en el bucle for \n");
@@ -99,6 +95,27 @@ elem index(list l, int n) {
 }
 
 // Copia todos los elementos de l1 en la nueva lista l2 
+list copy_list(list l) {
+    list current = NULL;
+    list head = NULL;
+
+    while (l != NULL) { 
+        list l2 = malloc(sizeof(struct _list)); 
+        l2->data = l->data; 
+        l2->next = NULL; 
+        
+        if (head == NULL) { 
+            head = l2;      
+            current = head; 
+        } else {
+            current->next = l2; 
+            current = l2; 
+        }
+        l = l->next;
+    }    
+    return head;
+}
+/*
 list copy_list(list l) {
     list current = NULL;
     list head = NULL;
@@ -118,9 +135,8 @@ list copy_list(list l) {
         l = l->next; // advance the new _list
     }    
     return head;
-
 }
-
+    */
 // Deja en l sólo los primeros n elementos, eliminando el resto
 list take(list l, int n) {
     if (n >= length(l)) {
@@ -129,8 +145,6 @@ list take(list l, int n) {
         destroy_list(l);
         return NULL;
     }
-    
-
     list current = l;
     list original = l;
 
@@ -150,8 +164,6 @@ list take(list l, int n) {
 
 // Elimina los primeros n elementos de l
 list drop (list l, int n) {
-    // same logic as take but backwards
-    assert (n<=length(l));
     if (n == 0 || l == NULL) {
         destroy_list(l);
         return NULL;

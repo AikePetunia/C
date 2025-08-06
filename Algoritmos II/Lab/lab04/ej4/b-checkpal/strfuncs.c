@@ -12,13 +12,14 @@ size_t string_length(const char *str) {
 
 char *string_filter(const char *str, char c) {
     char *result;
-    result = malloc(string_length(str) + 1); // según tamaño del arreglom, se aloja el tamaño del resultado.  
+    result = malloc(string_length(str) + 1); // según tamaño del arreglo, se aloja el tamaño del resultado.  
     int i = 0;
     int j = 0;
     if (string_length(str) == 0) { // caso base
         result[0] = '\0';
         return result; 
     }
+    
     while(str[i] != '\0') { // no finaliza
         if (str[i] != c) { // si es distinto, no se copia el char al arreglo
             result[j++] = str[i];
