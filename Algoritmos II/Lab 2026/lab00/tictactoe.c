@@ -1,13 +1,30 @@
 #include <stdlib.h>  /* exit() y EXIT_FAILURE */
 #include <stdio.h>   /* printf(), scanf()     */
 #include <stdbool.h> /* Tipo bool             */
-
 #include <assert.h>  /* assert() */
 
-#define TAM 3
-
+#define TAM 5
 #define CELL_MAX (TAM * TAM - 1)
 
+
+/*
+Run:
+gcc -Wall -Wextra -pedantic -std=c99 ./tictactoe.c -o  tictactoe
+
+Debug:
+gcc -g -O0 -Wall -Wextra -std=c11 tictactoe.c -o tictactoe
+gdb ./tictactoe
+
+break get_winner
+run
+next
+print i
+print j
+print winner
+print board[0][0]
+continue
+
+*/
 void print_sep(int length) {
     printf("\t ");
     for (int i=0; i < length;i++) printf("................");
@@ -35,11 +52,11 @@ char get_winner(char board[TAM][TAM])
     char winner = '-';
     int i = 0;
     while (i < TAM){
-        char referenceH = board[i][0]; // punto de partida, sin el punto de partida es vacio, no habría patron. "un ancla"
-        bool followsPatternH = referenceH != '-'; // sin patron, esto falla y quedará fallado.
+        // HORIZONTALES 
+        char referenceH = board[i][0]; // punto de partida, sin el punto de partida es vacio, no habría patron. "un ancla" (00, 10, 20, 30)
+        bool followsPatternH = referenceH != '-'; // guarda el punto de partida
         int j = 0;
         
-
         while (j < TAM && followsPatternH) {
             if (board[i][j] != referenceH) {
                 followsPatternH = false;
@@ -51,13 +68,13 @@ char get_winner(char board[TAM][TAM])
             winner = referenceH;
         }
 
-        char referenceV = board[0][i]; // punto de partida, sin el punto de partida es vacio, no habría patron. "un ancla"
-        bool followsPatternV = referenceV != '-';  // sin patron, esto falla y quedará fallado.
+        // VERTICALES
+        char referenceV = board[0][i]; // punto de partida, sin el punto de partida es vacio, no habría patron. "un ancla". (00, 01, 02, 03)
+        bool followsPatternV = referenceV != '-'; // guarda el punto de partida
+        j = 0;  // se reinicia, si no sigue con el num de analisis en horizontal xD
 
         while (j < TAM && followsPatternV) {
-            if (board[i][j] != referenceV) {
-                printf("doesn't follow patter V");
-                printf("%c", board[i][j]);
+            if (board[j][i] != referenceV) {
                 followsPatternV = false;
             }
             j++;
@@ -67,6 +84,47 @@ char get_winner(char board[TAM][TAM])
             winner = referenceV;
         }
        
+         /* 
+         cruzadas:
+        los anclajes son los extremos. Como re pingo consigo los extremos.
+        por tam?
+        ej, TAM = 3
+        primer corner [0][0] conj0
+        segundo corner [0][TAM-1] conj0
+        tercer corner [TAM-1][0] conj1
+        cuarto corner [TAM-1][TAM-1] conj1
+        Deberia de ver si alguno de estas esquinas conectan.
+        Como tambien conectan, deberia de ver si en medio del cruce, estan los caracteres de las esquinas
+         */
+        char refCross1 = board[0][0];
+        bool referenceCross1 = refCross1 != '-';
+        int k = 0;
+
+        while (k < TAM && referenceCross1) {
+            if (board[k][k] != refCross1) {
+                referenceCross1 = false;
+            }
+            k++;
+        }
+
+           if (referenceCross1 ) {
+            winner = referenceCross1 ;
+        }
+
+        char refCross2 = board[0][TAM - 1];
+        bool referenceCross2 = refCross2 != '-';
+        k = 0;
+        while (k < TAM && referenceCross2) {
+            if (board[k][TAM - 1 - k] != refCross2) {
+                referenceCross2 = false;
+            }
+            k++;
+        }
+
+        if ( referenceCross2) {
+            winner = referenceCross2;
+        }
+
         i++;
     }
 
