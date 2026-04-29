@@ -18,7 +18,7 @@ void array_dump(int a[], size_t length) {
 }
 
 
-int * array_from_file(const char *filepath, size_t *length) {
+int *array_from_file(const char *filepath, size_t *length) {
     FILE *file = NULL;
     file = fopen(filepath, "r");
     if (file == NULL) {
@@ -28,12 +28,15 @@ int * array_from_file(const char *filepath, size_t *length) {
     unsigned int i = 0u;
     unsigned int size = 0u;
     int res = 0;
-    res = fscanf(file, " %u ", &size);
+    res = fscanf(file, " %u ", &size); // !!
     if (res != 1) {
         fprintf(stderr, "Invalid array.\n");
         exit(EXIT_FAILURE);
     }
     int *array=NULL;
+    array = malloc(sizeof(long long int));
+    *length = size;
+
     //
     // COMPLETAR: - Reservar memoria para array
     //            - Cambiar el valor de *length para que contenga el tamaño del
@@ -55,3 +58,7 @@ int * array_from_file(const char *filepath, size_t *length) {
     return array;
 }
 
+/*
+gcc -Werror -Wextra -pedantic std=c99 main.c array_helpers.c -o main
+./main  ../input/example-sorted.in 
+*/

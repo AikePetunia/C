@@ -3,6 +3,7 @@
 #include <stdint.h>
 
 #include "data.h"
+#include <string.h>
 
 void
 print_data(data_t d) {
@@ -20,13 +21,26 @@ int main(void) {
     printf("name-size  : %lu bytes\n"
            "age-size   : %lu bytes\n"
            "height-size: %lu bytes\n"
-           "data_t-size: %lu bytes\n", /* COMPLETAR */);
+           "data_t-size: %lu bytes\n",
+           sizeof(messi.name),
+           sizeof(messi.age),
+           sizeof(messi.height),
+           sizeof(data_t)
+        );
 
-    /*
-     *
-     * COMPLETAR
-     *
-     */
+    printf("--- direcciones de memoria --- \n");
+    printf("name %p \n",  &messi.name);
+    printf("age %p \n",  &messi.age);
+    printf("height %p \n",  &messi.height );
+    
+    // c ??
+    int *dataP = NULL;
+    dataP = malloc(sizeof(data_t));
+    free(dataP);
 
     return EXIT_SUCCESS;
 }
+
+/*
+gcc -Werror -Wall -Wextra -std=c99 sizes.c -o sizes
+*/

@@ -22,6 +22,16 @@ int main(void) {
     person_t m = {90, 'M'};
     int a[] = {0, 1, 2, 3};
 
+    int *p = NULL;
+    p = &x;
+    *p = 9;
+
+    int *p2 = NULL;
+    p2 = &a[1];
+    *p2 = 42;
+
+
+    m.age = 100;
     /* Completar aquí:
        Al finalizar la ejecución las variables deben tener los siguientes valores
        x = 9
@@ -42,3 +52,9 @@ int main(void) {
     return EXIT_SUCCESS;
 }
 
+
+/*
+gcc -Wall -Wextra -pedantic -std=c99 -c weather_table.c weather_utils.c weather.c main.c
+gcc -Wall -Wextra -pedantic -std=c99 weather_table.o weather_utils.o weather.o main.o -o weather
+./weather ../input/weater_cordoba.in > weather_cordoba.out
+*/
