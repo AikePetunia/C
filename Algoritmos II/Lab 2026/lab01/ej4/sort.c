@@ -24,24 +24,77 @@ void selection_sort(int a[], unsigned int length) {
     }
 }
 
-
 static void insert(int a[], unsigned int i) {
-    /* copiá acá la implementación que hiciste en el ejercicio 1 */
+    int j = i;
+    while ((j>0 && a[j] <= a[j-1]))  {
+        swap(a, j-1, j);
+        j=j-1;
+    } 
+    
 }
 
 void insertion_sort(int a[], unsigned int length) {
-    /* copiá acá la implementación que hiciste en el ejercicio 1 */
+        for (unsigned int i = 1; i < length; ++i) {
+        printf("--- array iteration: %d --- \n", i);
+        printf("Initial array: \n");
+        array_dump(a, length);
+        printf("Array number taken:\na[%d] (%d) swaps with a[%d] (%d) \n", i, a[i], i-1, a[i-1]);
+        printf("swapping...\n");
+        insert(a, i );
+        printf("swapped, result: \n");
+        array_dump(a, length);
+        printf("--- array interation %d finish --- \n\n", i);
+        assert(array_is_sorted(a, i));
+    }
 }
 
 
 static unsigned int partition(int a[], unsigned int izq, unsigned int der) {
-    /* copiá acá la implementación que hiciste en el ejercicio 3 */
+    // assert(0<=izq);
+    // assert(der<lenght);
+    int piv = izq;
+    int i = izq+1;
+    int j = der;
+
+    while (i<=j) {
+        if (a[i] <= a[piv]) {
+            i = i+1;
+        } else if (a[j] >= a[piv]) {
+            j = j-1;
+        } else if (a[i] > a[piv] && a[j] < a[piv]) {
+            swap(a, i,j);
+            i = i + 1;
+            j = j + 1;
+        }
+    }
+    swap (a, piv, j);
+    piv = j;
+    
+    return piv;
+    /* PRECONDITION: 
+       0 <= izq < der < length of the array
+
+     Permutes elements of a[izq..der] and returns pivot such that:
+     - izq <= pivot <= der
+     - elements in a[izq,pivot) all 'go_before' (according to function goes_before) a[pivot]
+     - a[pivot] 'goes_before' all the elements in a(pivot,der]
+    */
 }
 
 static void quick_sort_rec(int a[], unsigned int izq, unsigned int der) {
-    /* copiá acá la implementación que hiciste en el ejercicio 2 */
-}
+    if (der > izq) {
+    // primer paso: hacer que el pivote quede en medio (tq, lft<piv<rgt)
+    int pvt = partition(a, izq, der);
+        quick_sort_rec(a,izq,pvt-1);
+        quick_sort_rec(a,pvt+1,der);
+    }}
 
 void quick_sort(int a[], unsigned int length) {
-    /* copiá acá la implementación que hiciste en el ejercicio 1 */
+    quick_sort_rec(a, 0, (length == 0) ? 0 : length - 1);
 }
+
+/*
+gcc -Wall -Werror -Wextra -pedantic -std=c99 -c array_helpers.c sort.c main.c
+gcc -Wall -Werror -Wextra -pedantic -std=c99 -no-pie array_helpers.o sort.o sort_helpers.o main.o -o sorter
+./sorter ../input/example-unsorted.in
+*/

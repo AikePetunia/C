@@ -10,7 +10,7 @@
 
 /* Then, this project's includes, alphabetically ordered */
 #include "weather_table.h"
-
+#include "weather_utils.h"
 /**
  * @brief print usage help
  * @param[in] program_name Executable name
@@ -69,7 +69,32 @@ int main(int argc, char *argv[]) {
     /* parse the file to fill the table */
     table_from_file(table, filepath);
 
+
     /* show the table in the screen */
+
+
+    printf("menos temp %g \n", h_min_temp(table)/10.0);
+
+    printf("temps max de cada año  \n");
+    int output[YEARS];
+    int year = 0;
+
+    year_max_temp(table, output);
+    while (year < YEARS) {
+        printf("%g", output[year]/10.0);
+        year++;
+    }
+
+    printf("mes con mas precipitacion en un año\n");
+
+    int output1[YEARS];
+    max_rainfall_year(table, output1);
+    int year1 = 0;
+    while (year1 < YEARS) {
+        printf("%d", output1[year1]);
+        year1++;
+    }
+
     table_dump(table);
 
     return EXIT_SUCCESS;
