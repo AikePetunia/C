@@ -5,7 +5,7 @@
 #include "flag_sort.h"
 
 #define MAX_LENGTH 10
-#define N_TESTCASES 11
+#define N_TESTCASES 15
 
 struct testcase {
     int length;
@@ -29,6 +29,10 @@ int main(void) {
         { 2, {white, blue}, {white, blue} },
         { 2, {blue, white}, {white, blue} },
         { 6, {blue, red, white, white, blue, red}, {red, red, white, white, blue, blue} },
+        { 4, {white, red, red, blue}, {red, red, white, blue} },
+        { 2, {red, white}, {red, white} },
+        { 2, {red, blue}, {red, blue} },
+        { 2, {red, white}, {red, white} },
     };
 
     printf("TESTING flag_sort\n");

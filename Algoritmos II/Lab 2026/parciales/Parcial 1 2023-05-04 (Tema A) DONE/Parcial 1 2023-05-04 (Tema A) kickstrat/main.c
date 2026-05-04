@@ -76,6 +76,8 @@ int main(int argc, char *argv[])
     /* parse the file to fill the array and obtain the actual length */
     array_from_file(array, filepath);
 
+    int profit = best_profit(array);
+    printf("profit %d", profit);
     /* show the data on the screen */
     array_dump(array);
     return (EXIT_SUCCESS);
