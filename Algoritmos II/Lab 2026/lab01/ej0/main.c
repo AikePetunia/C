@@ -31,7 +31,7 @@ printf("El string '%s' va %s alfabeticamente que '%s'\n\n",
             } else if (fstring_eq(words[i], words[j])) {
                 printf("Los strings '%s' y '%s' son iguales\n",
                         words[i], words[j]);
-            }y
+            }
             
         }
     }

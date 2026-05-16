@@ -25,7 +25,5 @@ bool fstring_less_eq(fixstring s1, fixstring s2);
  * Indicates if string <s1> is less than string <s2> using alphabetical order
  *
  */
-
-
 #endif
 

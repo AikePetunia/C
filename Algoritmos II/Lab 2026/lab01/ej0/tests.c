@@ -4,7 +4,7 @@
 
 #include "fixstring.h"
 
-#define N_TESTCASES 8
+#define N_TESTCASES 9
 
 struct testcase {
     fixstring s1;
@@ -24,6 +24,7 @@ int main(void) {
         {"holanda", "hola", false, false},
         {"hola", "chau", false, false},
         {"chau", "hola", false, true},
+        {"quinceañostenia", "noteniaquince", false, false},
     };
     bool eq, leq;
 
