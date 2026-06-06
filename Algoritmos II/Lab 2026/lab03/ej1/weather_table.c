@@ -64,11 +64,10 @@ void table_from_file(WeatherTable a, const char *filepath) {
             exit(EXIT_FAILURE);
         }
 
-        // Ir a la función 'weather_from_file' en weather.c y completar!
+        // Ir a la función 'weather_from_file' en weather.c!
         Weather weather = weather_from_file(file);
-        a[k_year - FST_YEAR][k_month - 1][k_day -1] = weather;
-        // También completar acá:
         // Guardar la medición de clima en el arreglo multidimensional.
+        a[k_year - FST_YEAR][k_month - 1][k_day -1] = weather;
     }
 
     fclose(file);

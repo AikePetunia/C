@@ -81,25 +81,16 @@ void array_from_file(LayoverTable array, const char *filepath) {
     el dato de interes es arrival.
     si tipo 1:
     el dato de interes es departure.
-    en el dia, a la misma hora:
-    hay un departure.
-    hay un arrival.
     */
     if (flight_departure.type == 1) {
       // i se lee en el archivo una hora h debe interpretarse como la hora h - 1 (ej: <7> ==> 6am).
       array[flight_departure.hour -1][flight_departure.type] = flight_departure;
       
-      // printf("\n\n -- hola -- \n\n");
-      // printf("hour: %d \n", flight_departure.hour);
-      // printf("type: %d \n", flight_departure.type);
       passengers_amount_in_airport(array, flight_departure.hour);
     }
       // i se lee en el archivo una hora h debe interpretarse como la hora h - 1 (ej: <7> ==> 6am).
       array[flight_arrival.hour -1][flight_arrival.type] = flight_arrival;
 
-      // printf("\n\n -- hola2 -- \n\n");
-      // printf("hour: %d \n", flight_arrival.hour);
-      // printf("type: %d \n", flight_arrival.type);
  }
   fclose(file);
 }

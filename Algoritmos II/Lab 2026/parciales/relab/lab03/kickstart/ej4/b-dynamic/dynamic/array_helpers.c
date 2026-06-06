@@ -33,15 +33,15 @@ int * array_from_file(const char *filepath, size_t *length) {
         fprintf(stderr, "Invalid array.\n");
         exit(EXIT_FAILURE);
     }
+
     int *array=NULL;
+    // - Reservar memoria para array
     array = malloc(size * sizeof(int));
+    // - Cambiar el valor de *length para que 
+    // contenga el tamaño del arreglo.
     printf("size of array %ld \n", (size * sizeof(int)));
     *length = size;
-    //
-    // COMPLETAR: - Reservar memoria para array
-    //            - Cambiar el valor de *length para que contenga el tamaño del
-    //              arreglo.
-    //
+
     if (size > 0 && array == NULL) {
         fprintf(stderr, "Not enough memory\n");
         exit(EXIT_FAILURE);

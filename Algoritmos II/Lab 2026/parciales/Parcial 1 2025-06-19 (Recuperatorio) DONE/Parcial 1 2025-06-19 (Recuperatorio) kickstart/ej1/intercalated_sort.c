@@ -3,7 +3,6 @@
 #include <stdio.h>
 
 #include "intercalated_sort.h"
-
 void array_dump(int a[], unsigned int length) {
     fprintf(stdout, "Largo de arreglo: %u\n", length);
     for (unsigned int i = 0u; i < length; ++i) {
@@ -28,15 +27,11 @@ void swap(int a[], int i, int j) {
     // printf("a[j]: %d \n", a[j]);
 }
 
-void intercalated(int a[], int i, int length) {
-    int j = i;
-    while (j > 0 && a[j] < a[j-2] ) {
-        //printf("\n -- while -- \n");
-        //printf("%d > 0 \n", j);
-        //printf("%d < %d-2 \n", a[j], a[j - 2]);
-        swap(a, j - 2, j);
-        array_dump(a, length);
-        j = j - 2;
+void intercalated(int a[], unsigned int i, unsigned int length) {
+    unsigned int j = i;
+    while (j >= 2 && a[j] < a[j-2]) {
+        swap(a, j-2, j);
+        j -= 2;
     }
 }
 
@@ -44,20 +39,11 @@ void intercalated(int a[], int i, int length) {
  * @brief Ordena las posiciones pares del arreglo (0-based)
  * usando el algoritmo de ordenación por inserción.
  */
-void intercalated_sort(int a[], int length) {
-    int i = 0;
-    // //printf("lenght %d \n", length);
-    if (!(length == 0 || length == 1 || length == 2))
-    {
-        while (i < length) {
-            if (i % 2 == 0) {
-                intercalated(a, i, length);
-            }
-            i++;
-        }
+void intercalated_sort(int a[], unsigned int length) {
+    for (unsigned int i = 2; i < length; i += 2) {
+        intercalated(a, i, length);
     }
 }
-
 
 
 /*

@@ -32,17 +32,12 @@ int main(void) {
 
 
     m.age = 100;
-    /* Completar aquí:
-       Al finalizar la ejecución las variables deben tener los siguientes valores
+    /* 
+       Al finalizar la ejecución las variables d
+       deben tener los siguientes valores
        x = 9
        m = (100, F)
        a[1] = 42
-
-       Las restricciones son:
-       - No usar las variables 'x', 'm' y 'a' en la parte izquierda de alguna asignación.
-       - Se pueden agregar líneas de código, pero no modificar las que ya existen.
-       - Se pueden declarar hasta 2 punteros.
-       AYUDA: podes usar GDB para consultares valores de variables y la dirección de memoria donde estan alojadas.
     */
 
     printf("x = %d\n", x);

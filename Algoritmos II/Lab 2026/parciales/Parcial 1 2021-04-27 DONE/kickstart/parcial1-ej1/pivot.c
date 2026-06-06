@@ -10,28 +10,21 @@
  *  @param piv - index of piv to check
  */
 bool is_pivot(int array[], unsigned int length, unsigned int piv) {
-    bool isLeftSideCorrect = true;
-    bool isRightSideCorrect = true;
-
     assert(piv < length);
 
-    unsigned int izq = 0;
-    unsigned int der = 0;
-    while (izq < piv) {
-        if (array[izq] > array[piv]) {
-            isLeftSideCorrect = false;
+    for (unsigned int i = 0; i < piv; ++i) {
+        if (array[i] > array[piv]) {
+            return false;
         }
-        izq++;
     }
 
-    while (der < piv) {
-        if (array[der] <= array[piv]) {
-            isRightSideCorrect = false;
+    for (unsigned int i = piv + 1; i < length; ++i) {
+        if (array[i] <= array[piv]) {
+            return false;
         }
-        der++;
     }
 
-    return (isLeftSideCorrect && isRightSideCorrect);
+    return true;
 }
 
 /*

@@ -33,8 +33,10 @@ int *array_from_file(const char *filepath, size_t *length) {
         fprintf(stderr, "Invalid array.\n");
         exit(EXIT_FAILURE);
     }
+    // inicializar puntero
     int *array=NULL;
-    array = malloc(sizeof(long long int));
+    // asignar
+    array = malloc(size * sizeof(int));
     *length = size;
 
     //

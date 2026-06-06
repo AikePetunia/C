@@ -17,12 +17,10 @@ int year_rainfall(WeatherTable a, int year) {
   int day = 0;
   int max_rainfall_year = 0;
   // recordar que los arreglos es desde la posicon 0, pero los meses y dias en 1. 
-  while (month < MONTHS ) {
+  while (month < MONTHS) {
     day = 0;
     while (day < DAYS)
     {
-   //   printf("calculated for: a[%d][%d][%d] \n", year, month, day);
-      // printf("rainfall for: a[%d][%d][%d] being rainfall: %d \n", year, month, day, a[year - FST_YEAR][month][day]._rainfall);
       max_rainfall_year += a[year - FST_YEAR][month][day]._rainfall;
       day++;
     }

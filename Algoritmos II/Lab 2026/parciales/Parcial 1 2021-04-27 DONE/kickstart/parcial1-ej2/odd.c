@@ -13,36 +13,22 @@ bool is_odd(int number) {
  * @returns if the odd positions are really sorted
  */
 bool is_odd_sorted(int array[], unsigned int length) {
-    bool isOddSorted = true;
-    unsigned int i = 0;
-    unsigned int j = 0;
+    bool first = true;
+    int previous_value = 0;
 
-    while (i < length) {
-        if (is_odd(i)) {
-            while(j < length) {
-                /*
-                si array = [5,1,8,2,3,4]
-                bien, al inicio voy a tener
-                   1 < 2 {
-                    isOddSorted = true
-                   }
-                    2 < 4 {
-                    isOddSorted = true;
-                    }
-
-                    */
-                if (is_odd(j) && (array[i] > array[j])) {
-                    printf("entre al if \n");
-                    isOddSorted = false;
-                } 
-                j++;
+    for (unsigned int i = 1; i < length; i += 2) {
+        if (first) {
+            previous_value = array[i];
+            first = false;
+        } else {
+            if (previous_value > array[i]) {
+                return false;
             }
+            previous_value = array[i];
         }
-        i++;
     }
 
-    printf("is oddSorted?: %d \n", isOddSorted);
-    return isOddSorted;
+    return true;
 }
 
 int main() {

@@ -12,10 +12,6 @@ void swap(fixstring a[], unsigned int i, unsigned int j) {
     fstring_set(tmp, a[i]); // tmp = a[i]
     fstring_set(a[i], a[j]); // a[i] = a[j]
     fstring_set(a[j], tmp); // a[j] = tmp
-    printf("--- resultados swap --- \n");
-    printf("Ahora tmp tiene: %s \n", tmp); 
-    printf("Ahora a[i] tiene: %s \n", a[i]); 
-    printf("Ahora a[j] tiene: %s \n", a[j]); 
 
 }
 
