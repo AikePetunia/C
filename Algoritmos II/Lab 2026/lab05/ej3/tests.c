@@ -12,9 +12,9 @@
 list array_to_list(int array[], int length) {
     list result;
     result = empty();
-
     // agregamos al revés ya que usamos addl
-    for (int i = length; i > 0; i--) {
+    for (int i = length; i > 0; i--)
+    {
         result = addl(array[i-1], result);
     }
 
@@ -89,6 +89,7 @@ void test_index() {
         input = array_to_list(tests[i].a, tests[i].length);
 
         // TEST! llamamos la función a testear
+        printf("pasando %d se espera %d \n", tests[i].index, tests[i].result);
         result = index(input, tests[i].index);
 
         destroy_list(input);

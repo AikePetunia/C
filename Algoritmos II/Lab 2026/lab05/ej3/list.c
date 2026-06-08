@@ -1,7 +1,7 @@
 #include <assert.h>
 #include <stdbool.h>
 #include <stdlib.h>
-
+#include <stdio.h>
 #include "list.h"
 
 #define MAX_LENGTH 100
@@ -18,7 +18,8 @@ struct _list {
  * @brief Creates a new empty list.
  */
 list empty() {
-    list l = NULL;
+    list l = malloc(sizeof(struct _list));
+    l->size = 0;
     return l;
 }
 
@@ -27,12 +28,15 @@ list empty() {
  */
 list addl(elem e, list l) {
     // assert(l != NULL); // valido el nodo
-    // en realidad deberia de crear una lista enlazada?
-    // poner como primer elemento eso, y luego concatenarlo
-    list newList = malloc(sizeof(struct _list));
-    newList->data = e;
-    newList->next = l;
-    return newList;
+    int i = l->size;
+    // hago espacio en la lsita
+    while (i > 0) {
+        l->elems[i] = l->elems[i - 1];
+        i--;
+    }
+    l->elems[0] = e;
+    l->size++;
+    return l;
 }
 
 //
@@ -45,7 +49,7 @@ list addl(elem e, list l) {
 bool is_empty(list l) {
         // assert(l != NULL); // valido el nodo
 
-    return length(l) == 0 ? true : false;
+    return l->size == 0 ? true : false;
 }
 
 /**
@@ -54,8 +58,7 @@ bool is_empty(list l) {
  * PRECONDITION: !is_empty(l)
  */
 elem head(list l) {
-    
-    return l->data;
+    return l->elems[0];
 }
 
 /**
@@ -64,16 +67,11 @@ elem head(list l) {
  * PRECONDITION: !is_empty(l)
  */
 list tail(list l) {
-    // assert(!is_empty(l));
-    // assert(l != NULL); // valido el nodo
-
-    list first = l; // primer element de l
-    list new_head = l->next;
-    
-    // borra y limpia
-    free(first); 
-    first = NULL;
-    return new_head;
+    for (int i = 1; i < l->size; i++) {
+        l->elems[i-1] = l->elems[i];
+    }
+    l->size--;
+    return l;
 }
 
 /**
@@ -81,21 +79,8 @@ list tail(list l) {
  */
 list addr(list l, elem e) {
     // assert(l != NULL); // valido el nodo
-    list newList = malloc(sizeof(struct _list));
-    
-    // si está vacia, solo pego el elemento q me llego
-    newList->data = e;
-    newList->next = NULL;
-    if (is_empty(l)) {
-        return newList;
-    }
-
-    list aux = l;
-    while (aux->next != NULL)
-    {
-        aux = aux->next;
-    }
-    aux->next = newList;
+    l->elems[l->size] = e;
+    l->size++;
     return l;
 }
 
@@ -103,12 +88,7 @@ list addr(list l, elem e) {
  * @brief Return the amount of elements of list `l`.
  */
 int length(list l) {
-    int lenght = 0;
-    while(l != NULL) {
-        l = l->next;
-        lenght++;
-    }
-    return lenght;
+    return l->size;
 }
 
 /**
@@ -116,22 +96,17 @@ int length(list l) {
  */
 list concat(list l, list l0) {
     // casos base
-    if (l == NULL) {
-        return l0;
+    if (l->size + l0->size > MAX_LENGTH) {
+        return l; // no se puede concat
     }
-    if (l0 == NULL) {
-        return l;
+    // actualizo tamaño de la lista
+    l->size += l0->size;
+
+    int i = 0;
+    while( i < l->size) {
+        l->elems[l->size += i] = l0->elems[i];
+        i++;
     }
-
-    // como ninguna lista es vacia, tenog que ir hasta el final de l
-    list aux = l; // realizo una copia para no perder refs
-    while (aux->next != NULL) {
-        aux = aux->next;
-    }
-
-    // ya en el final attacheo esto
-    aux->next = l0;
-
     return l;
 }
 
@@ -141,47 +116,24 @@ list concat(list l, list l0) {
  * PRECONDITION: n < length(l)
  */
 elem index(list l, int n) {
-    // assert(n < length(l));
+    assert(n >= 0 && n < l->size);
 
-    list aux = l;
-    int index = 0;
-
-    while(index != n) {
-        aux = aux->next; // mueve donde apunta
-        index++;
+    int i = 0;
+    while ( i < l->size) {
+        // printf("\nelemento de l %d", l->elems[i]);
+        i++;
     }
-
-    return aux->data;
+    return l->elems[n];
 }
 
 /**
  * @brief Takes the first `n` elements of `l` in-place, removing the rest.
  */
 list take(list l, int n) {
-    // assert(l != NULL); // valido nodo
-
-    if (n == 0) {
-        destroy_list(l);
-        return NULL;
-    }
-    
-    if (length(l) < n) {
+        if (n >= length(l)) {
         return l;
     }
-
-    list aux = l; // creo aux
-
-    int index = 0;
-    // recorre hasta el elemento N
-    while (index < n-1) {
-        aux = aux->next;
-        index++;
-    }
-
-    list to_remove = aux->next;
-    aux->next = NULL;
-
-    destroy_list(to_remove);
+    l->size = n;
     return l;
 }
 
@@ -192,27 +144,24 @@ list drop(list l, int n) {
     // assert(l != NULL); // valida nodo
 
     //casos base
-    if (n > length(l)) {
+    if (n > l->size) {
         destroy_list(l);
         return NULL;
     }
 
-    if (length(l) < n) {
+    if (l->size < n) {
         return l;
     }
 
-    list aux = l; // ref
-    list aux2 = NULL; // ref2 por q si no borro y pierdo datos de recorrido
+    int index = 0;
 
-    // va dropeando o liberando entre iteraciones?
-    while(n > 0 && aux != NULL) {
-        aux2 = aux; // guardo el nodo actual para que se borre.
-        aux = aux->next;
-        free(aux2);
-        n--;
+    // recorre hasta el elemento N
+    while (index < n-1) {
+        l->elems[index - n] = l->elems[index];
+        index++;
     }
-
-    return aux;
+    l->size -= n;
+    return l;
 }
 
 /**
@@ -221,24 +170,6 @@ list drop(list l, int n) {
 list copy_list(list l) {
     if (l == NULL) return NULL;
     list copy_list = l;
-    copy_list->data = l->data; // copio el primer elemment
-    copy_list->next = NULL;
-
-    // aux recorrido
-    list current_orig = l->next;
-    list current_copy = copy_list;
-    while (current_copy != NULL) {
-
-        list new_node = malloc(sizeof(struct _list));
-        new_node->data = current_orig->data;
-        new_node->next = NULL;
-
-        // enganchamos el nodo nuevo a la copia
-        current_copy->next = new_node;
-
-        current_copy = current_copy->next;
-        current_orig = current_orig->next;
-    }
 
     return copy_list;
 }
@@ -251,3 +182,10 @@ void destroy_list(list l) {
 }
 
 
+
+/*
+
+gcc -Wall -Wextra -std=c99 list.c tests.c -o tests
+gcc -Wall -Werror -Wextra -pedantic -std=c99 list.o tests.o -o tests
+./tests
+*/
