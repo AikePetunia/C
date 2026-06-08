@@ -34,3 +34,11 @@ int main(void) {
 
     return EXIT_SUCCESS;
 }
+
+
+/*
+
+gcc -std=c99 -pedantic -Werror -Wall main.c pair.c -o main
+./main
+
+*/

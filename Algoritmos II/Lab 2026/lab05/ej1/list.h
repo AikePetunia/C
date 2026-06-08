@@ -2,6 +2,10 @@
 #define _LIST_H
 
 #include <stdbool.h>
+#include <stdbool.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <assert.h>
 
 typedef int elem;
 typedef struct _list * list;

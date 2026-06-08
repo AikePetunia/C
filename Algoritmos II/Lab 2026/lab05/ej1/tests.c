@@ -12,10 +12,12 @@
 list array_to_list(int array[], int length) {
     list result;
     result = empty();
+   //  printf("\n empty \n");
 
     // agregamos al revés ya que usamos addl
     for (int i = length; i > 0; i--) {
-        result = addl(array[i-1], result);
+    //     printf("result idk adll boom \n");
+        result = addl(array[i - 1], result);
     }
 
     return result;
@@ -41,6 +43,7 @@ void test_head() {
 
     printf("TESTING head\n");
 
+
     for (int i=0; i < N_TESTCASES_HEAD; i++) {
         printf("Test case %i: ", i+1);
 
@@ -49,7 +52,7 @@ void test_head() {
 
         // TEST! llamamos la función a testear
         result = head(input);
-
+      //  printf("before it ghoes boom ! \n");
         destroy_list(input);
 
         // comparamos resultado obtenido con resultado esperado

@@ -38,21 +38,27 @@ char *parse_filepath(int argc, char *argv[]) {
 }
 
 bool matching_parentheses(FILE * file) {
+    printf("hola amikos\n");
     counter c = NULL;
     bool balanced = true;
     char letter;
+    c = counter_init();
 
     while (!feof(file) && balanced) {
         letter = fgetc(file);
         if (letter == '(') {
+            printf("increasing from matching parentheses \n");
             counter_inc(c);
         } else if (counter_is_init(c)) {
             balanced = (letter != ')');
         } else if (letter == ')') {
+            printf("Decreasing from matching parentheses \n");
             counter_dec(c);
         }
     }
-    return (balanced && counter_is_init(c));
+        bool is_init = counter_is_init(c);
+    counter_destroy(c);
+    return (balanced && is_init);
 }
 
 int main(int argc, char *argv[]) {
@@ -74,3 +80,10 @@ int main(int argc, char *argv[]) {
 
     return (EXIT_SUCCESS);
 }
+
+/*
+gcc -Wall -Werror -Wextra -pedantic -std=c99 -c counter.c main.c 
+gcc -Wall -Werror -Wextra -pedantic -std=c99 counter.o main.o -o counter
+
+./counter input/balanced.in
+*/

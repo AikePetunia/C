@@ -21,12 +21,9 @@ int pair_second(pair_t p) {
 
 // para values[0] por second
 pair_t pair_swapped(pair_t p) {
-    int tmp = p.values[0];
-    p.values[0] = p.values[1];
-    p.values[1] = tmp;
-    return p;
+    return pair_new(p.values[0], p.values[1]);
 }
 
 void pair_destroy(pair_t p) {
-    // free(p);
+     // free(p);
 }

@@ -2,6 +2,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
+
+struct s_pair_t {
+    int fst;
+    int snd;
+};
+
 /*
  * DESC: Creates a new pair with components (x, y)
  *
@@ -34,10 +40,7 @@ int pair_second(pair_t p) {
  *
  */
 pair_t pair_swapped(pair_t p) {
-    int tmp = p->fst;
-    p->snd = p->fst;
-    p->snd = tmp;
-    return p;
+    return pair_new(p->snd, p->fst);    
 }
 
 /*
@@ -45,6 +48,6 @@ pair_t pair_swapped(pair_t p) {
  *
  */
 void pair_destroy(pair_t p) {
-   // assert(p != NULL);
-   // free(p);
+   free(p);
 }
+

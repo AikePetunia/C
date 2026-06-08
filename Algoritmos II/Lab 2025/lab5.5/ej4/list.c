@@ -67,8 +67,8 @@ elem head (list l) {
     assert(!is_empty(l));
     // o if (xs != NULL);
     return l->data;
-
 }
+
 // devuelve el primer elemento de la lsita 
 // pre: !is_empty.  
 
