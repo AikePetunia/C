@@ -26,7 +26,7 @@ list empty() {
  * @brief Adds element `e` to the left of list `l`.
  */
 list addl(elem e, list l) {
-    l->start = ((l->start- 1 + MAX_LENGTH) % MAX_LENGTH);
+    l->start = ((l->start - 1 + MAX_LENGTH) % MAX_LENGTH);
     l->a[l->start] = e;
     l->size++;
     return l;
