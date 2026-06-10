@@ -103,6 +103,8 @@ pqueue pqueue_enqueue(pqueue q, Character character) {
   // primer elemento
   if (q->size == 0 || q->First == NULL) {
     q->First = new_node;
+  } else if (new_node->iniciative > q->First->iniciative) {
+    new_node->next
   }
 
   // si estoy aca, entonces ya tengo un first.

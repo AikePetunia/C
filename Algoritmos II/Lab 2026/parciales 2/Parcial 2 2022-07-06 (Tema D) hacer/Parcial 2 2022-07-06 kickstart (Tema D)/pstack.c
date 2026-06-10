@@ -4,11 +4,14 @@
 #include "pstack.h"
 
 struct s_pstack {
-    /* COMPLETAR */
+    size_t size;
+    priority_t MAX_PRIORITY;
+    struct s_node **array;
 };
 
 struct s_node {
-    /* COMPLETAR */
+    pstack_elem e;
+    struct s_node *Next;
 };
 
 static struct s_node * create_node(pstack_elem e) {
