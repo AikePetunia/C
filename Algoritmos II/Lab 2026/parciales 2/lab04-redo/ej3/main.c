@@ -32,7 +32,6 @@ List setup_example() {
     return head;
 }
 
-// agregado x mi
 void list_destroy(List head) {
     List current = head;
     while (current != NULL) {
@@ -58,7 +57,6 @@ int main(void) {
 
     show_list(my_list);
 
-    // agregado x mi
     list_destroy(my_list);
 
     return 0;

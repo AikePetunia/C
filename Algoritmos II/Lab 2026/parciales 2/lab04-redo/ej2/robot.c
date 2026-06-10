@@ -84,77 +84,33 @@ void mostrar_robot(robot_t robot) {
  *
  * A las partes no quemadas NO LAS REEMPLAZA, sólo les pone el aceite óptimo
  */
-
 void reparar_robot(robot_t robot) {
-    printf("\n\n === stats iniciales === \n");
-    printf("La mano está quemada? %d \n", robot->codo->mano->quemado);
-    printf("El codo está quemado? %d \n", robot->codo->quemado);
-    printf("Cantidad de aceite en la mano %d \n", robot->codo->mano->aceite);
-    printf("Cantidad de aceite en el codo %d \n", robot->codo->aceite);
-    printf("=== stats iniciales === \n");
 
-    // No está quemado, pero se le refillea el aceita
-    if (robot->codo->quemado == false && robot->codo->aceite != ACEITE_OPTIMO) {
-        printf("Refill de aceite en CODO: \n");
+    if(robot->codo->aceite != ACEITE_OPTIMO) {
         robot->codo->aceite = ACEITE_OPTIMO;
     }
 
-    // No está quemado, pero se le refillea el aceita
-    if (robot->codo->mano->quemado == false && robot->codo->mano->aceite != ACEITE_OPTIMO) {
-        printf("Refill de aceite en MANO: \n");
+    if(robot->codo->mano->aceite != ACEITE_OPTIMO) {
         robot->codo->mano->aceite = ACEITE_OPTIMO;
     }
 
-    // si el codo esta quemado, se tiene que reparar si o si la mano tmb
-    if (robot->codo->quemado == true) {
-        printf("liberando memoria para robot->codo \n");
-        // como liberamos memoria para el codo, tambien lo hace para la mano
+   if (robot->codo->mano->quemado == true) {
         free(robot->codo->mano);
-        robot->codo->mano = NULL;
-
-        free(robot->codo);
-        robot->codo = NULL;
-        printf("memoria liberada \n");
-
-        printf("asignado nueva memoria para codo \n");
-        robot->codo = malloc(sizeof(struct _codo));
-        printf("memoria asignada para el codo \n");
-
-        robot->codo->aceite = ACEITE_OPTIMO;
-        robot->codo->quemado = false;
-
         robot->codo->mano = malloc(sizeof(struct _mano));
-           printf("intentando reparar la mano...\n");
         robot->codo->mano->aceite = ACEITE_OPTIMO;
-        printf("boom?\n");
         robot->codo->mano->quemado = false;
-        printf("codo reparada re piola \n");
     }
     
-    // si la mano esta quemada, se repara solo la mano
-    if (robot->codo->mano->quemado == true)
-    {
-        printf("liberando memoria para robot->codo->mano \n");
-        free(robot->codo->mano);
-        printf("memoria liberada \n");
-
-        printf("asignado nueva memoria para mano \n");
-        robot->codo->mano = malloc(sizeof(struct _mano));
-        printf("memoria asignada para el mano \n");
-
-        robot->codo->mano->aceite = ACEITE_OPTIMO;
-        robot->codo->mano->quemado = false;
-        printf("mano reparada re piola \n");
-    } 
-
-
-
-    printf("\n=== stats finales === \n");
-    printf("La mano sigue quemada? %d \n", robot->codo->mano->quemado);
-    printf("El codo sigue quemado? %d \n", robot->codo->quemado);
-    printf("Aceite en la mano: %d \n", robot->codo->mano->aceite);
-    printf("Aceite en el codo: %d \n", robot->codo->aceite);
-    printf("=== stats finales === \n \n \n");
+    if (robot->codo->quemado == true) {
+         free(robot->codo->mano);
+        free(robot->codo);
+        robot->codo = malloc(sizeof(struct _codo));
+        robot->codo->aceite = ACEITE_OPTIMO;
+        robot->codo->quemado = false;
+         robot->codo->mano = malloc(sizeof(struct _mano));
+         robot->codo->mano->aceite = ACEITE_OPTIMO;
+         robot->codo->mano->quemado = false;
+    }
 }
 
 /**
@@ -166,13 +122,3 @@ void destruir_robot(robot_t robot) {
     free(robot->codo);
     free(robot);
 }
-
-/*
-
-gcc -Wall -Wextra -std=c99 tests.c robot.c -o tests 
-./tests
-
-gcc -Wall -Wextra -std=c99 ejemplo.c robot.c -o ejemplo 
-./ejemplo
-*/
-

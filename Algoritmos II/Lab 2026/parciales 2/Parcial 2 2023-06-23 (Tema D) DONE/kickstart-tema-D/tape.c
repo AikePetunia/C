@@ -232,11 +232,11 @@ tape_t tape_copy(tape_t tape) {
 }
 
 tape_t tape_destroy(tape_t tape) {
-    node_t node = tape->start;
-    // voy nodo a nodo limpiandolo
-    while (node->next != NULL) {
-        destroy_node(node);
-        node = node->next;
+    node_t curr = tape->start;
+    while (curr != NULL) {
+        node_t killme = curr;    // 1. Marco al condenado
+        curr = curr->next;       // 2. Salto a un lugar seguro (el siguiente vagón)
+        destroy_node(killme);    // 3. mato al condenado
     }
     free(tape);
     return NULL;
