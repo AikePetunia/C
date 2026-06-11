@@ -8,10 +8,7 @@ struct s_pair_t {
     int snd;
 };
 
-/*
- * DESC: Creates a new pair with components (x, y)
- *
- */
+//DESC: Creates a new pair with components (x, y)
 pair_t pair_new(int x, int y) {
     pair_t p = malloc(sizeof(struct s_pair_t));
     p->fst = x;
@@ -19,34 +16,22 @@ pair_t pair_new(int x, int y) {
     return p;
 }
 
-/*
- * DESC: Returns the first component of p
- *
- */
+//DESC: Returns the first component of p
 int pair_first(pair_t p) {
     return p->fst;
 }
 
-/*
- * DESC: Returns the second component of p
- *
- */
+// DESC: Returns the second component of p
 int pair_second(pair_t p) {
     return p->snd;
 }
 
-/*
- * DESC: Return a NEW pair with the components of p reversed
- *
- */
+// DESC: Return a NEW pair with the components of p reversed
 pair_t pair_swapped(pair_t p) {
     return pair_new(p->snd, p->fst);    
 }
 
-/*
- * DESC: Free memory if its necessary
- *
- */
+// DESC: Free memory if its necessary
 void pair_destroy(pair_t p) {
    free(p);
 }
