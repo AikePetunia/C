@@ -102,14 +102,14 @@ void reparar_robot(robot_t robot) {
     }
     
     if (robot->codo->quemado == true) {
-         free(robot->codo->mano);
+        free(robot->codo->mano);
         free(robot->codo);
         robot->codo = malloc(sizeof(struct _codo));
         robot->codo->aceite = ACEITE_OPTIMO;
         robot->codo->quemado = false;
-         robot->codo->mano = malloc(sizeof(struct _mano));
-         robot->codo->mano->aceite = ACEITE_OPTIMO;
-         robot->codo->mano->quemado = false;
+        robot->codo->mano = malloc(sizeof(struct _mano));
+        robot->codo->mano->aceite = ACEITE_OPTIMO;
+        robot->codo->mano->quemado = false;
     }
 }
 

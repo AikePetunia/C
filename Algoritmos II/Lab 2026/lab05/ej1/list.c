@@ -39,7 +39,7 @@ list addl(elem e, list l) {
 bool is_empty(list l) {
         // assert(l != NULL); // valido el nodo
 
-    return length(l) == 0 ? true : false;
+        return l == NULL;
 }
 
 /**
@@ -241,6 +241,11 @@ list copy_list(list l) {
  * @brief Frees memory for `l`.
  */
 void destroy_list(list l) {
-    free(l);
+    list aux;
+    while (l != NULL) {
+        aux = l;         // Guardo el nodo actual
+        l = l->next;     // Avanzo al siguiente
+        free(aux);       // Libero el que guardé
+    }
 }
 
